@@ -61,6 +61,22 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Financial trading specific colors
+				chart: {
+					grid: 'hsl(var(--chart-grid))',
+					bullish: 'hsl(var(--chart-bullish))',
+					bearish: 'hsl(var(--chart-bearish))'
+				},
+				bollinger: {
+					basis: 'hsl(var(--bollinger-basis))',
+					upper: 'hsl(var(--bollinger-upper))',
+					lower: 'hsl(var(--bollinger-lower))'
+				},
+				trading: {
+					buy: 'hsl(var(--buy-button))',
+					sell: 'hsl(var(--sell-button))',
+					price: 'hsl(var(--price-tag))'
 				}
 			},
 			borderRadius: {

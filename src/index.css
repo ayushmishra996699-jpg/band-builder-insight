@@ -2,96 +2,121 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Dark Financial Trading Dashboard Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Primary financial dashboard colors */
+    --background: 217 26% 6%; /* #0d1117 - Deep navy */
+    --background-gradient: linear-gradient(135deg, #0d1117 0%, #1a1d24 100%);
+    --foreground: 0 0% 100%; /* Pure white text */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 210 11% 15%; /* #1e1e1e - Dark gray */
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 210 11% 7%; /* #121212 - Very dark */
+    --popover-foreground: 0 0% 80%; /* #cccccc - Light gray */
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 215 100% 50%; /* #0066ff - Trading blue */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 11% 15%; /* Dark surface */
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 11% 11%; /* #1a1a1a */
+    --muted-foreground: 0 0% 60%; /* #999999 */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 100% 36%; /* #00b894 - Bullish green */
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 79% 63%; /* #e74c3c - Bearish red */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 210 11% 20%; /* Subtle borders */
+    --input: 210 11% 15%;
+    --ring: 215 100% 50%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Financial chart specific colors */
+    --chart-grid: 0 0% 20%; /* Grid lines */
+    --chart-bullish: 180 100% 36%; /* #00b894 - Bullish candles */
+    --chart-bearish: 0 79% 63%; /* #e74c3c - Bearish candles */
+    
+    /* Bollinger Bands colors */
+    --bollinger-basis: 215 100% 50%; /* #0066ff - Blue */
+    --bollinger-upper: 0 100% 60%; /* #ff3333 - Red */
+    --bollinger-lower: 180 100% 32%; /* #009688 - Teal */
+    
+    /* Trading UI elements */
+    --buy-button: 215 100% 50%; /* #0066ff */
+    --sell-button: 0 100% 60%; /* #ff3333 */
+    --price-tag: 0 79% 63%; /* Price highlight */
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar and toolbar */
+    --sidebar-background: 210 11% 7%;
+    --sidebar-foreground: 0 0% 80%;
+    --sidebar-primary: 215 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 11% 15%;
+    --sidebar-accent-foreground: 0 0% 80%;
+    --sidebar-border: 210 11% 20%;
+    --sidebar-ring: 215 100% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    /* Dark mode uses the same financial theme */
+    --background: 217 26% 6%;
+    --foreground: 0 0% 100%;
+    --card: 210 11% 15%;
+    --card-foreground: 0 0% 100%;
+    --popover: 210 11% 7%;
+    --popover-foreground: 0 0% 80%;
+    --primary: 215 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 11% 15%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 210 11% 11%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 180 100% 36%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 79% 63%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 11% 20%;
+    --input: 210 11% 15%;
+    --ring: 215 100% 50%;
+    --sidebar-background: 210 11% 7%;
+    --sidebar-foreground: 0 0% 80%;
+    --sidebar-primary: 215 100% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 210 11% 15%;
+    --sidebar-accent-foreground: 0 0% 80%;
+    --sidebar-border: 210 11% 20%;
+    --sidebar-ring: 215 100% 50%;
   }
+
+  /* Custom gradient backgrounds */
+  .bg-financial-gradient {
+    background: var(--background-gradient);
+  }
+
+  /* Trading specific animations */
+  .price-pulse {
+    animation: price-pulse 1s ease-in-out infinite;
+  }
+
+  @keyframes price-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  /* Chart container styles */
+  .chart-container {
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+  }
+}
 }
 
 @layer base {
