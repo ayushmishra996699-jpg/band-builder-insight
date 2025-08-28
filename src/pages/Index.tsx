@@ -19,7 +19,7 @@ const Index = () => {
   });
   const [bollingerResults, setBollingerResults] = useState<BollingerBandsResult[]>([]);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isIndicatorAdded, setIsIndicatorAdded] = useState(false);
+  const [isIndicatorAdded, setIsIndicatorAdded] = useState(true); // Show Bollinger Bands by default
 
   // Load demo data
   useEffect(() => {
@@ -123,16 +123,7 @@ const Index = () => {
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
                 <span className="text-sm text-muted-foreground">Indicators:</span>
-                {!isIndicatorAdded ? (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleAddIndicator}
-                    className="border-primary text-primary hover:bg-primary/10"
-                  >
-                    + Bollinger Bands
-                  </Button>
-                ) : (
+                {isIndicatorAdded ? (
                   <div className="flex items-center gap-2">
                     <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
                       Bollinger Bands ({bollingerConfig.settings.length}, {bollingerConfig.settings.stdDev})
@@ -145,7 +136,24 @@ const Index = () => {
                     >
                       <Settings className="w-4 h-4" />
                     </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setIsIndicatorAdded(false)}
+                      className="text-muted-foreground hover:text-foreground"
+                    >
+                      ✕
+                    </Button>
                   </div>
+                ) : (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAddIndicator}
+                    className="border-primary text-primary hover:bg-primary/10"
+                  >
+                    + Bollinger Bands
+                  </Button>
                 )}
               </div>
 

@@ -82,7 +82,14 @@ const Chart: React.FC<ChartProps> = ({ data, bollingerConfig, onBollingerUpdate 
     if (!isChartReady || !chartInstanceRef.current || !data.length) return;
 
     try {
-      // Calculate Bollinger Bands
+      const chart = chartInstanceRef.current;
+      
+      // Calculate Bollinger Bands using the exact formulas:
+      // Basis (middle band) = SMA(source, length)
+      // StdDev = sample standard deviation of the last length values of source
+      // Upper = Basis + (StdDev multiplier * StdDev)
+      // Lower = Basis - (StdDev multiplier * StdDev)
+      // Offset: shift the three series by offset bars on the chart
       const bollingerResults = computeBollingerBands(data, bollingerConfig.settings);
       
       // Notify parent component
@@ -90,8 +97,100 @@ const Chart: React.FC<ChartProps> = ({ data, bollingerConfig, onBollingerUpdate 
         onBollingerUpdate(bollingerResults);
       }
 
-      // For now, we'll just calculate the bands and notify the parent
-      // The visual rendering will be simplified
+      // Clear existing overlays first
+      try {
+        chart.removeOverlay();
+      } catch (e) {
+        // Ignore if no overlays exist
+      }
+
+      // Create Bollinger Bands overlays if any band is visible
+      if (bollingerConfig.style.basis.visible || bollingerConfig.style.upper.visible || bollingerConfig.style.lower.visible) {
+        
+        // Add Basis line (middle band)
+        if (bollingerConfig.style.basis.visible) {
+          const basisPoints = bollingerResults
+            .filter(result => !isNaN(result.basis))
+            .map((result, index) => ({
+              dataIndex: index,
+              value: result.basis
+            }));
+
+          if (basisPoints.length > 0) {
+            try {
+              chart.createOverlay({
+                name: 'priceLine',
+                id: 'bollinger_basis',
+                points: [{ value: basisPoints[basisPoints.length - 1].value }],
+                styles: {
+                  line: {
+                    color: bollingerConfig.style.basis.color,
+                    size: bollingerConfig.style.basis.lineWidth
+                  }
+                }
+              });
+            } catch (e) {
+              console.warn('Could not create basis line overlay:', e);
+            }
+          }
+        }
+
+        // Add Upper band
+        if (bollingerConfig.style.upper.visible) {
+          const upperPoints = bollingerResults
+            .filter(result => !isNaN(result.upper))
+            .map((result, index) => ({
+              dataIndex: index,
+              value: result.upper
+            }));
+
+          if (upperPoints.length > 0) {
+            try {
+              chart.createOverlay({
+                name: 'priceLine',
+                id: 'bollinger_upper',
+                points: [{ value: upperPoints[upperPoints.length - 1].value }],
+                styles: {
+                  line: {
+                    color: bollingerConfig.style.upper.color,
+                    size: bollingerConfig.style.upper.lineWidth
+                  }
+                }
+              });
+            } catch (e) {
+              console.warn('Could not create upper band overlay:', e);
+            }
+          }
+        }
+
+        // Add Lower band
+        if (bollingerConfig.style.lower.visible) {
+          const lowerPoints = bollingerResults
+            .filter(result => !isNaN(result.lower))
+            .map((result, index) => ({
+              dataIndex: index,
+              value: result.lower
+            }));
+
+          if (lowerPoints.length > 0) {
+            try {
+              chart.createOverlay({
+                name: 'priceLine',
+                id: 'bollinger_lower',
+                points: [{ value: lowerPoints[lowerPoints.length - 1].value }],
+                styles: {
+                  line: {
+                    color: bollingerConfig.style.lower.color,
+                    size: bollingerConfig.style.lower.lineWidth
+                  }
+                }
+              });
+            } catch (e) {
+              console.warn('Could not create lower band overlay:', e);
+            }
+          }
+        }
+      }
     } catch (error) {
       console.error('Failed to update Bollinger Bands:', error);
     }
